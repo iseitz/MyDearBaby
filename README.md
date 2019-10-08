@@ -14,7 +14,7 @@ Rails 6.0.0
 
 * Database initialization
 
-* This app uses Rspec and Cucumber for testing. Run 'Rspec Spec' to run the full test suite 
+* This app uses Rspec and Capybara for testing. Run 'Rspec Spec' to run the full test suite 
 
 * Services (job queues, cache servers, search engines, etc.)
 
