@@ -222,17 +222,12 @@
     parent_id: integer
 
   ** NOTES **
-    has_many: photos
+  #this line allows me to use ActiveStorage to trace relations between the uploaded images and the notes
+    has_many_attached: images
     belongs_to: child
     body: text
     child_id: integer
 
-
-  ** PHOTOS **
-    belongs_to: note
-    belongs_to: child
-    photo_note: string
-    note_id: integer
 
   ** MILESTONES **
     belongs_to: child
