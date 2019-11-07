@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_112004) do
+ActiveRecord::Schema.define(version: 2019_11_07_054119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2019_10_23_112004) do
     t.datetime "dob"
     t.string "gender", null: false
     t.string "color_theme"
-    t.integer "parent_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 2019_10_23_112004) do
   create_table "notes", force: :cascade do |t|
     t.text "note_body", null: false
     t.integer "child_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rbacs", force: :cascade do |t|
+    t.string "role", null: false
+    t.string "rights", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

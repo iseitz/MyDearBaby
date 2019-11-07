@@ -5,7 +5,7 @@ class Reminder < ApplicationRecord
   DURATION = %w[week month year].freeze
   LOCATION = %w[app email].freeze
   belongs_to :user
-  validates :child_id, presence: true
+  belongs_to :child
   validates :reminder_type, presence: true, inclusion: { in: TYPES }
   validates :reminder_duration, presence: true, inclusion: { in: DURATION }
   validates :reminder_location, presence: true, inclusion: { in: LOCATION }

@@ -7,7 +7,7 @@ class CreateChildren < ActiveRecord::Migration[6.1]
       t.datetime :dob
       t.string :gender, null: false
       t.string :color_theme
-      t.integer :parent_id
+      t.integer :user_id
       t.timestamps
     end
   end
