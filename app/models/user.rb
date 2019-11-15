@@ -11,6 +11,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :children
   has_many :reminders
+  has_one_attached :avatar
   validates :name, presence: true
   validates :last_name, presence: true
   validates :dob, presence: true

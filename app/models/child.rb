@@ -6,23 +6,24 @@ class Child < ApplicationRecord
   belongs_to :user
   has_many :notes, dependent: :destroy
   has_many :reminders, dependent: :destroy
-  include ActiveModel::Validations
-  validates_with DobValidator
+  # has_one_attached :avatar
   validates :name, presence: true
   validates :gender, presence: true, inclusion: { in: GENDERS }
   validates :dob, presence: true
-  # validates :birth_date_nine_months_from_today
+  # include ActiveModel::Validations
+  # validates_with DobValidator
+  validate :birth_date_max
   validates :color_theme, presence: true, inclusion: { in: THEMES }
   validates :user_id, presence: true
 
-  # private
-  #
-  # def birth_date_nine_months_from_today
-  #   # it can be in the past or within 9 months from now
-  #   if Date.today + 279 < :dob
-  #     # Time.now + 9.months  OR
-  #     # Time.now + 24_105_600
-  #     errors.add(:dob, 'must be in the past or within 9 months from today')
-  #   end
-  # end
+  private
+
+  # date of birth can be in the past or within 9 months from now
+  def birth_date_max
+    if dob.present? && dob > Date.today + 279
+      # Time.now + 9.months  OR
+      # Time.now + 24_105_600
+      errors.add(:dob, 'must be in the past or within 9 months from today')
+    end
+  end
 end

@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:email) { |n| "email#{n}@gmail.com" }
+    sequence(:email) { |n| "#{n}email#{n}@gmail.com" }
     sequence(:name) { |n| "name#{n}" }
     sequence(:last_name) { |n| "last_name#{n}" }
-    sequence(:dob) { |n| "December #{n}, 1983" }
+    sequence(:dob) { |n| (n + 20).years.ago }
     sequence(:status) { %w[mother father grandmother grandfather aunt uncle sister brother other_caretaker].sample }
     password { 'password' }
     password_confirmation { 'password' }
@@ -22,7 +22,31 @@ FactoryBot.define do
       username { 'moderator' }
       role { 'moderator' }
     end
-    factory :moderator, traits: [:moderator]
-    factory :admin, traits: [:admin]
+
+    trait :with_children do
+      # after(:build) do |user|
+      #   user.children { create_list(:child, 3) }
+      # end
+
+      after(:build) do |user|
+       user.children = build_stubbed_list(:child, 3)
+     end
+    end
+
+    trait :with_reminders do
+      after(:build) do |user|
+        user.reminders = build_stubbed_list(:reminder, 3)
+      end
+    end
+
+
+    trait :with_avatar do
+      avatar { fixture_file_upload(Rails.root.join('spec', 'support', 'assets', 'test-image.png'), 'image/png') }
+    end
+
+    #
+    # factory :moderator, traits: [:moderator]
+    # factory :admin, traits: [:admin]
+    # factory :with_avatar, traits: [:with_avatar]
   end
 end

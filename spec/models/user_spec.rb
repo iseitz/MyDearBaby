@@ -104,16 +104,58 @@ RSpec.describe User, type: :model do
   end
 
   context 'user has relations with children and reminders' do
-    it 'has many children' do
-      @user = FactoryBot.create(:user)
-      @child = FactoryBot.create(:child, user: @user)
-      expect(@user.children.size).to eq(1)
+    it 'has onwe or more children' do
+      @user1 = FactoryBot.create(:user)
+      @child = FactoryBot.create(:child, user: @user1)
+      @user2 = FactoryBot.build(:user, :with_children)
+      expect(@user1.children.size).to eq(1)
+      expect(@user2.children.size).to eq(3)
     end
+
     it 'has many reminders' do
       @user = FactoryBot.create(:user)
       @child = FactoryBot.create(:child)
       @reminder = FactoryBot.create(:reminder, user: @user, child: @child)
+      @user2 = FactoryBot.build(:user, :with_reminders)
       expect(@user.reminders.size).to eq(1)
+      expect(@user2.reminders.size).to eq(3)
     end
   end
+
+
+  # context 'it can have #avatar attached to the profile in four different sizes' do
+  #   let(:user){ create(:user, :with_avatar)}
+  #
+  #   it "has an image/avatar included" do
+  #
+  #
+  #     expect(user.avatar).to be_attached
+  #   end
+
+    # describe '.thumb' do
+    #   it "scales down an image to be no larger than 50 by 50 pixels" do
+    #     expect(@user.image.thumb).to be_no_larger_than(50, 50)
+    #   end
+    # end
+    #
+    # describe '.small' do
+    #   it "scales down an image to be no larger than 150 by 150 pixels" do
+    #     expect(@user.image.small).to be_no_larger_than(150, 150)
+    #   end
+    # end
+    #
+    # describe '.medium' do
+    #   it "scales down an image to be no larer than 200 by 200 pixels" do
+    #     expect(@user.image.medium).to be_no_larger_than(200, 200)
+    #   end
+    # end
+    #
+    # describe '.large' do
+    #   it "scales down a landscape image to be no larger than 500 by 450 pixels" do
+    #     expect(@user.image.large).to be_no_larger_than(500, 450)
+    #   end
+  # end
+
+
+
 end
